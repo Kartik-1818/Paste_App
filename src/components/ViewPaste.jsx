@@ -5,14 +5,15 @@ import { useParams } from "react-router-dom";
 const ViewPaste = () => {
   const { id } = useParams();
 
-  // 🧠 Get from localStorage instead of Redux
+  // ✅ Fetch from localStorage instead of Redux
   const storedPastes = JSON.parse(localStorage.getItem("pastes")) || [];
-  const paste = storedPastes.find((paste) => paste._id === id);
+
+  const paste = storedPastes.find(p => p._id === id);
 
   if (!paste) {
     return (
       <div className="w-full h-full flex items-center justify-center text-2xl font-bold">
-        Paste not found
+        Paste Not Found 😢
       </div>
     );
   }
@@ -28,18 +29,18 @@ const ViewPaste = () => {
           className="w-full text-black border border-input rounded-md p-2"
         />
 
-        <div className="w-full flex flex-col items-start relative rounded bg-opacity-10 border border-[rgba(128,121,121,0.3)] backdrop-blur-2xl">
-          <div className="w-full rounded-t flex items-center justify-between px-4 py-2 border-b border-[rgba(128,121,121,0.3)]">
-            <div className="flex gap-x-[6px] items-center select-none group">
-              <div className="w-[13px] h-[13px] rounded-full bg-[rgb(255,95,87)]" />
-              <div className="w-[13px] h-[13px] rounded-full bg-[rgb(254,188,46)]" />
-              <div className="w-[13px] h-[13px] rounded-full bg-[rgb(45,200,66)]" />
+        <div className="w-full flex flex-col items-start relative rounded border border-[rgba(128,121,121,0.3)]">
+          <div className="w-full flex justify-between px-4 py-2 border-b">
+            <div className="flex gap-x-[6px]">
+              <div className="w-[13px] h-[13px] rounded-full bg-red-500" />
+              <div className="w-[13px] h-[13px] rounded-full bg-yellow-400" />
+              <div className="w-[13px] h-[13px] rounded-full bg-green-500" />
             </div>
 
             <button
               onClick={() => {
                 navigator.clipboard.writeText(paste.content);
-                toast.success("Copied to Clipboard");
+                toast.success("Copied to Clipboard ✅");
               }}
               className="flex items-center"
             >
@@ -50,8 +51,7 @@ const ViewPaste = () => {
           <textarea
             value={paste.content}
             disabled
-            className="w-full p-3 focus-visible:ring-0"
-            rows={20}
+            className="w-full p-4 min-h-[300px] focus-visible:ring-0"
             style={{ caretColor: "#000" }}
           />
         </div>
