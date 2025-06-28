@@ -1,9 +1,14 @@
+
 import { Copy } from "lucide-react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+
+
 const ViewPaste = () => {
+const storedPastes = JSON.parse(localStorage.getItem("pastes")) || [];
+const paste = storedPastes.find((paste) => paste._id === id);
   const { id } = useParams();
 
   console.log(id)
