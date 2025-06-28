@@ -11,10 +11,11 @@ const Paste = () => {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
 
-// Inside your Paste component:
+// Inside Paste component, after declaring `pastes`
 useEffect(() => {
   localStorage.setItem("pastes", JSON.stringify(pastes));
 }, [pastes]);
+
   
   
   const handleDelete = (id) => {
