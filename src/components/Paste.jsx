@@ -4,12 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react"; // Import useState
 import { removeFromPastes } from "../redux/pasteSlice";
 import { FormatDate } from "../utlis/formatDate";
+import { useEffect } from "react";
 
 const Paste = () => {
   const pastes = useSelector((state) => state.paste.pastes);
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
 
+// Inside your Paste component:
+useEffect(() => {
+  localStorage.setItem("pastes", JSON.stringify(pastes));
+}, [pastes]);
+  
+  
   const handleDelete = (id) => {
     dispatch(removeFromPastes(id));
   };
